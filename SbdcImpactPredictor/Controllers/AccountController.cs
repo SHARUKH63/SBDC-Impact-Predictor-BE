@@ -1,10 +1,12 @@
-﻿using SbdcImpactPredictor.Interfaces;
+﻿using Microsoft.AspNetCore.Mvc;
+using SbdcImpactPredictor.Interfaces;
 using SbdcImpactPredictor.Models.ApiModels;
-using System.Web.Http;
 
 namespace SbdcImpactPredictor.Controllers
 {
-    public class AccountController : ApiController
+    [ApiController]
+    [Route("account")]
+    public class AccountController : ControllerBase
     {
         private readonly IAccountService _accountService;
 
@@ -14,7 +16,8 @@ namespace SbdcImpactPredictor.Controllers
         }
 
         [HttpPost]
-        public IHttpActionResult Login(LoginRequest loginRequest)
+        [Route("login")]
+        public IActionResult Login([FromBody]LoginRequest loginRequest)
         {
             var result = _accountService.FindUser(loginRequest.UserName, loginRequest.Password);
 
