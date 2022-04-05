@@ -26,6 +26,7 @@ namespace SbdcImpactPredictor
                     options.JsonSerializerOptions.PropertyNamingPolicy = null;
                 });
             services.AddScoped<IAccountService, AccountService>();
+            services.AddScoped<ILoansService, LoansService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
