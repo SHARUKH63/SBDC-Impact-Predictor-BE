@@ -8,6 +8,6 @@ namespace SbdcImpactPredictor.Interfaces
 {
     public interface ILoansService
     {
-        List<Loan> GetLoans(string locationName);
+        List<Loan> GetLoans(int year,string locationName);
     }
 }

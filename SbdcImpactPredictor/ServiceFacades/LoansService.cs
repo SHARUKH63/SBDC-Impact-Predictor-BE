@@ -6,13 +6,12 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using Excel = Microsoft.Office.Interop.Excel;
 
 namespace SbdcImpactPredictor.ServiceFacades
 {
     public class LoansService : ILoansService
     {
-        public List<Loan> GetLoans(string locationName)
+        public List<Loan> GetLoans(int year,string locationName)
         {
             var loans = new List<Loan>();
             string format = "dd/MM/yyyy";
@@ -33,13 +32,13 @@ namespace SbdcImpactPredictor.ServiceFacades
                     var loan = new Loan
                     {
                         UniqueIdentifier = workSheet.Cells[rowIterator, 1].Value.ToString(),
-                        CreditType = workSheet.Cells[rowIterator, 2].Value.ToString(),
+                        CreditType = (CreditType)Enum.Parse(typeof(CreditType), workSheet.Cells[rowIterator, 2].Value.ToString(), true),
                         AmountApplied = Convert.ToInt32(workSheet.Cells[rowIterator, 3].Value),
                         AmountApproved = Convert.ToInt32(workSheet.Cells[rowIterator, 4].Value),
                         ActionTakenDate = DateTime.ParseExact(workSheet.Cells[rowIterator, 5].Value.ToString(), format, new CultureInfo("en-US"), DateTimeStyles.None),
-                        Status = workSheet.Cells[rowIterator, 6].Value.ToString(),
-                        DenialInformation = workSheet.Cells[rowIterator, 7].Value?.ToString(),
-                        MinorityOwned = workSheet.Cells[rowIterator, 8].Value?.ToString(),
+                        Status = (LoanStatus)Enum.Parse(typeof(LoanStatus), workSheet.Cells[rowIterator, 6].Value.ToString(), true),
+                        DenialInformation = (DenialReason)Enum.Parse(typeof(DenialReason), workSheet.Cells[rowIterator, 7].Value.ToString(), true),
+                        MinorityOwned = (bool)workSheet.Cells[rowIterator, 8].Value,
                         Gender = workSheet.Cells[rowIterator, 9].Value.ToString(),
                         Latitude = Convert.ToDecimal(workSheet.Cells[rowIterator, 10].Value),
                         Longitude = Convert.ToDecimal(workSheet.Cells[rowIterator, 11].Value),
@@ -48,7 +47,7 @@ namespace SbdcImpactPredictor.ServiceFacades
                     loans.Add(loan);
                 }
             }
-            loans = loans.Where(l => l.State.ToLower() == locationName.ToLower()).ToList();
+            loans = loans.Where(l => l.State.ToLower() == locationName.ToLower() && l.ActionTakenDate.Year == year).ToList();
             return loans;
         }
     }

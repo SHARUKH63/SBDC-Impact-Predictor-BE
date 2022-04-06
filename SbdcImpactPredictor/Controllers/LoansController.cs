@@ -20,10 +20,10 @@ namespace SbdcImpactPredictor.Controllers
         }
 
         [HttpGet]
-        [Route("{locationName}")]
-        public IActionResult GetLoans([FromRoute]string locationName)
+        [Route("{year}/{locationName}")]
+        public IActionResult GetLoans([FromRoute]int year, [FromRoute]string locationName)
         {
-            var result = _loansService.GetLoans(locationName);
+            var result = _loansService.GetLoans(year, locationName);
 
             if (result != null)
             {
