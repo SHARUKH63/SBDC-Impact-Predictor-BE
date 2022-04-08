@@ -27,7 +27,7 @@ namespace SbdcImpactPredictor.ServiceFacades
                     DenialInformation = i % 3 == 0 ? DenialReason.Cashflow : (i % 2 == 0 ? DenialReason.CreditCharacteristicsOfBusiness : DenialReason.TimeInbusiness),
                     Gender = i % 3 == 0 ? "Male" : (i % 2 == 0 ? "Female" : "Female"),
                     InterestRate = new Random().Next(5, 20),
-                    MinorityOwned = i%2 == 0 ? true : false,
+                    MinorityOwned = i % 3 == 0 ? true : (i % 2 == 0 ? false : false),
                     State = i % 2 == 0 ? "Texas" : "California",
                     Status = i % 2 == 0 ? LoanStatus.Approved : LoanStatus.Rejected,
                 };
