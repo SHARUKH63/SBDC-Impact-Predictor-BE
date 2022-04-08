@@ -16,5 +16,6 @@ namespace SbdcImpactPredictor.Models.ApiModels
         public decimal Latitude { get; set; }
         public decimal Longitude { get; set; }
         public string State { get; set; }
+        public decimal InterestRate { get; set; }
     }
 }

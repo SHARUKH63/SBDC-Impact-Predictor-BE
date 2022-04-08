@@ -15,7 +15,7 @@ namespace SbdcImpactPredictor.ServiceFacades
         {
             var loans = new List<Loan>();
             string format = "dd/MM/yyyy";
-            var d = new DirectoryInfo(@"C:\SBDCPredictor\SbdcImpactPredictor\Files");
+            var d = new DirectoryInfo(@"..\SbdcImpactPredictor\Files");
             var files = d.GetFiles("*.xlsx");
             foreach (var file in files)
             {
@@ -42,7 +42,8 @@ namespace SbdcImpactPredictor.ServiceFacades
                         Gender = workSheet.Cells[rowIterator, 9].Value.ToString(),
                         Latitude = Convert.ToDecimal(workSheet.Cells[rowIterator, 10].Value),
                         Longitude = Convert.ToDecimal(workSheet.Cells[rowIterator, 11].Value),
-                        State = workSheet.Cells[rowIterator, 12].Value.ToString()
+                        State = workSheet.Cells[rowIterator, 12].Value.ToString(),
+                        InterestRate = Convert.ToDecimal(workSheet.Cells[rowIterator, 13].Value)
                     };
                     loans.Add(loan);
                 }
