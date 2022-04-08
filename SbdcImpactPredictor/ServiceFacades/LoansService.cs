@@ -15,7 +15,7 @@ namespace SbdcImpactPredictor.ServiceFacades
         {
             var loans = new List<Loan>();
             string format = "dd/MM/yyyy";
-            var d = new DirectoryInfo(@"..\SbdcImpactPredictor\Files");
+            var d = new DirectoryInfo(@"..\Files");
             var files = d.GetFiles("*.xlsx");
             foreach (var file in files)
             {
